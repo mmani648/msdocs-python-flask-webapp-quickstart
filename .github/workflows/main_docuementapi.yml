@@ -67,6 +67,9 @@ jobs:
       - name: Install system dependencies (Poppler)
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
       
+      - name: Verify pdfinfo path
+        run: which pdfinfo      
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:

@@ -23,7 +23,11 @@ document_handlers = {
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
+
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
+@app.route('/')
+def favicon():
+    return "All Systems are up and running"
 
 @app.route('/DocumentScraping', methods=['POST'])
 def document_scraping():
