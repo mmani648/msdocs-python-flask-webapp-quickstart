@@ -20,13 +20,9 @@ document_handlers = {
     'labor_contract_information': labor_contract_information
 }
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
 
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 @app.route('/')
-def favicon():
+def test():
     return "All Systems are up and running"
 
 @app.route('/DocumentScraping', methods=['POST'])
