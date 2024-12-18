@@ -19,14 +19,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install system dependencies (Poppler)
-        run: |
-          sudo apt-get update && sudo apt-get install -y poppler-utils
-          echo "/usr/bin:$PATH" >> $GITHUB_ENV  # Add Poppler to PATH
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
+          export PATH="/usr/bin:$PATH"  # Add Poppler to PATH within the virtual environment
 
       - name: Install dependencies
         run: |
@@ -65,9 +64,7 @@ jobs:
         run: unzip release.zip
 
       - name: Install system dependencies (Poppler)
-        run: |
-          sudo apt-get update && sudo apt-get install -y poppler-utils
-          echo "/usr/bin:$PATH" >> $GITHUB_ENV  # Add Poppler to PATH
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
       - name: Login to Azure
         uses: azure/login@v2
