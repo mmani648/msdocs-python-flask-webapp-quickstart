@@ -27,9 +27,9 @@ jobs:
       # Build the Docker image
       - name: Build the Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-flask-app:$GITHUB_SHA .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest .
           
       # Push the Docker image to Docker Hub
       - name: Push the Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-flask-app:$GITHUB_SHA
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
