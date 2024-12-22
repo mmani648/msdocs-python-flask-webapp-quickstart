@@ -235,6 +235,7 @@ class Emirates_ID(BaseModel):
     date_of_birth: str = Field(None, description="Date of birth of the person in ISO 8601 format (YYYY-MM-DD)")
     date_of_issue: str = Field(None, description="Date of issue of the Emirates ID in ISO 8601 format (YYYY-MM-DD)")
     date_of_expiry: str = Field(None, description="Date of expiry of the Emirates ID in ISO 8601 format (YYYY-MM-DD)")
+    
 
 
 
@@ -389,10 +390,7 @@ def labor_contract_information(file, image: bool):
 
         for img in images:
             base64_image = encode_image_to_base64(img)
-            image_data = base64.b64decode(base64_image)
-
-            with open("output_image.png", "wb") as image_file:
-                image_file.write(image_data)
+    
             content.append({
                 "type": "image_url",
                 "image_url": {
