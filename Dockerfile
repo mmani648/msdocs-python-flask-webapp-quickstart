@@ -3,7 +3,7 @@ FROM python:3.10-slim
 
 # Set the working directory inside the container
 WORKDIR /app
-RUN sudo apt-get update && sudo apt-get install -y poppler-utils
+RUN apt-get update && apt-get install -y poppler-utils
 # Copy the requirements file to the container
 COPY requirements.txt .
 
