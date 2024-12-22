@@ -1,25 +1,25 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 import io
 import json
 # Import document processing functions
 import traceback
-from DocumentScraper import (
-    passport, labor_card, residence_visa,
-    emirates_id, home_country_id, labor_contract_information
-)
+from DocumentScraper import DocumentParser
+from DocumentClasses import Passport, Labor_Card, Residence_Visa, Emirates_ID, Home_Country_ID, Labor_Contract_Information   
 
 app = Flask(__name__)
 
 # Map document types to their corresponding functions
 document_handlers = {
-    'passport'                  : passport,
-    'labor_card'                : labor_card,
-    'residence_visa'            : residence_visa,
-    'emirates_id'               : emirates_id,
-    'home_country_id'           : home_country_id,
-    'labor_contract_information': labor_contract_information
+    'passport': Passport,
+    'labor_card': Labor_Card,
+    'residence_visa': Residence_Visa,
+    'emirates_id': Emirates_ID,
+    'home_country_id': Home_Country_ID,
+    'labor_contract_information': Labor_Contract_Information
 }
+
+
 
 
 @app.route('/')
@@ -33,15 +33,17 @@ def document_scraping():
     # access headers
     try:
         headers = request.headers
-    
-        if 'X-API-KEY' not in headers:
-            return jsonify({"error": "API key is missing."}), 401
-        
-        if headers['X-API-KEY'] != os.environ.get('API_KEY'):
-            return jsonify({"error": "Invalid API key."}), 401
         query_parameters = request.args
+    
+        # if 'X-API-KEY' not in headers:
+        #     return jsonify({"error": "API key is missing."}), 401
+        
+        # if headers['X-API-KEY'] != os.environ.get('API_KEY'):
+        #     return jsonify({"error": "Invalid API key."}), 401
+        
         if 'document_type' not in query_parameters:
             return jsonify({"error": "document_type is missing."}), 400
+        
         
         document_type = query_parameters['document_type']
         
@@ -53,14 +55,9 @@ def document_scraping():
 
             return jsonify({"error": "Invalid or unsupported document_type."}), 400
 
-        # Get the handler function for the document type
-        handler_function = document_handlers[document_type]
         file_content = io.BytesIO(file.read())
-
-        # Pass the file-like object to the handler function
-        handler_function = document_handlers[document_type]
         
-        resp= handler_function(file_content, file.mimetype.startswith("image")).content
+        resp= DocumentParser(file_content, file.mimetype.startswith("image"),document_type,document_handlers[document_type]).content
         print(resp)
         # Call the handler function with the appropriate arguments
 
@@ -71,4 +68,4 @@ def document_scraping():
         
             
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5001)

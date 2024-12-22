@@ -3,7 +3,7 @@ FROM python:3.10-slim
 
 # Set the working directory inside the container
 WORKDIR /app
-RUN apt-get update && apt-get install -y poppler-utils
+RUN sudo apt-get update && sudo apt-get install -y poppler-utils
 # Copy the requirements file to the container
 COPY requirements.txt .
 
@@ -23,6 +23,5 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Use gunicorn to run the Flask app (replace 'app:app' with your Flask app module
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "600", "app:app"]
-
+# Use gunicorn to run the Flask app (replace 'app:app' with your Flask app module)
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
