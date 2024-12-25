@@ -11,6 +11,7 @@ from openai import OpenAI
 import base64
 from io import BytesIO
 from pdf2image import convert_from_path
+Image.MAX_IMAGE_PIXELS = None
 
 client = OpenAI()
 

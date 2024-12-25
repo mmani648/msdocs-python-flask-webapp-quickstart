@@ -5,18 +5,25 @@ import json
 # Import document processing functions
 import traceback
 from DocumentScraper import DocumentParser
-from DocumentClasses import Passport, Labor_Card, Residence_Visa, Emirates_ID, Home_Country_ID, Labor_Contract_Information   
+from DocumentClasses import Passport, Labor_Card, Residence_Visa, Emirates_ID, Home_Country_ID, Labor_Contract_Information,TouristVisa,Invoice,PurchaseOrder ,CompanyLicense,CompanyVATCertificate
 
 app = Flask(__name__)
 
 # Map document types to their corresponding functions
 document_handlers = {
+
     'passport': Passport,
     'labor_card': Labor_Card,
     'residence_visa': Residence_Visa,
     'emirates_id': Emirates_ID,
     'home_country_id': Home_Country_ID,
-    'labor_contract_information': Labor_Contract_Information
+    'labor_contract_information': Labor_Contract_Information,
+    
+    'tourist_visa':TouristVisa,
+    'invoice':Invoice,
+    'purchase_order':PurchaseOrder,
+    'company_license':CompanyLicense,
+    'company_vat_cert':CompanyVATCertificate,
 }
 
 
