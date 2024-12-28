@@ -128,7 +128,7 @@ class Labor_Contract_Information(BaseModel):
     basic_salary    = Field(None, description="Basic Salary of the Employee minus all allowances")
     food_allowance: float = Field(None, description="Food Allowance provided to the Employee")
     telephone_allowance: float = Field(None, description="Telephone Allowance provided to the Employee")
-    AditonalTerms: str = Field(None, description="Additional Terms")
+    AditonalTerms: List[str] = Field(None, description="Additional Terms all points in article (4) box all")
     document_validity: str = Field(None, description="is the uploaded Document is valid mention reason if not valid")
     document_validity_check: bool = Field(None, description="is the uploaded Document is valid or  invalid")    
 
@@ -137,7 +137,7 @@ class TouristVisa(BaseModel):
     Pydantic class for Tourist Visa details.
     """
     visa_type : str = Field(None, description="Type of Visa")
-    entry_permit_number : str = Field(None, description="Entry Permit Number")
+    entry_permit_number : str = Field(None, description="Entry Permit Number remove if any space ")
     daate_of_issue : str = Field(None, description="Date of Issue of the Visa")
     place_of_issue : str = Field(None, description="Place of Issue of the Visa")
     uid_number : str = Field(None, description="UID Number")
@@ -151,6 +151,16 @@ class TouristVisa(BaseModel):
     document_validity: str = Field(None, description="is the uploaded Document is valid mention reason if not valid")
     document_validity_check: bool = Field(None, description="is the uploaded Document is valid or  invalid")    
 
+
+class Items_(BaseModel):
+    """Pydantic class for all Invoice items ."""
+    item_description: str = Field(..., description="Description of the item")
+    item_quantity: int = Field(..., description="Quantity of the item")
+    item_unit_price: float = Field(..., description="Unit price of the item")
+    item_total_price: float = Field(..., description="Total price for the item (Quantity × Unit Price)")
+    discounts: Optional[float] = Field(None, description="Discounts applied on the item, if applicable")
+    tax_details: Optional[float] = Field(None, description="Tax amount for the item, if applicable")
+    shipping_or_handling_charges: Optional[float] = Field(None, description="Shipping or handling charges, if applicable")    
 
 class Invoice(BaseModel):
     """Pydantic class for Invoice details.""" 
@@ -173,13 +183,9 @@ class Invoice(BaseModel):
     customer_tax_identification_number: Optional[str] = Field(None, description="Customer's tax identification number, if applicable")
 
     # Invoice Items/Line Details
-    item_description: str = Field(..., description="Description of the item")
-    item_quantity: int = Field(..., description="Quantity of the item")
-    item_unit_price: float = Field(..., description="Unit price of the item")
-    item_total_price: float = Field(..., description="Total price for the item (Quantity × Unit Price)")
-    discounts: Optional[float] = Field(None, description="Discounts applied on the item, if applicable")
-    tax_details: Optional[float] = Field(None, description="Tax amount for the item, if applicable")
-    shipping_or_handling_charges: Optional[float] = Field(None, description="Shipping or handling charges, if applicable")
+    
+    items: Optional[List[Items_]] = Field(None, description="List of eligibility maximums details. get this data from Plan Summary")
+
 
     # Tax Details
     taxable_amount: float = Field(..., description="Subtotal before tax")
@@ -268,6 +274,12 @@ class PurchaseOrder(BaseModel):
     document_validity: str = Field(None, description="is the uploaded Document is valid mention reason if not valid")
     document_validity_check: bool = Field(None, description="is the uploaded Document is valid or  invalid")    
 
+class Member(BaseModel):
+    number: int  # Represents 'No.'
+    name: str    # Represents 'Name'
+    nationality: str
+    role: str
+    share: float  # Assuming share is a float percentage; adjust if it's a different data type
 
 class CompanyLicense(BaseModel):
     """ Pydantic class for Company License details. """
@@ -285,7 +297,7 @@ class CompanyLicense(BaseModel):
     dcci_no: Optional[str] = Field(None, description="DCCI number (if applicable)")
 
     # License Members
-    license_members: List[dict] = Field(None, description="List of license members with their details")
+    license_members: List[Member] = Field(None, description="List of license members with their details")
 
     # License Activities
     license_activities: Optional[List[str]] = Field(None, description="List of activities allowed by the license")

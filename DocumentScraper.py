@@ -25,12 +25,18 @@ def encode_image_to_base64(img):
 
 
 def pdf_to_images(binary_data):
-    
+  
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(binary_data.getvalue())
         temp_file_name = temp_file.name
-        images = convert_from_path(temp_file_name, dpi=1200)
-   
+        print(temp_file_name)
+        try: os.remove(temp_file_name)
+        except: pass        
+        images = convert_from_path(temp_file_name, dpi=600,grayscale=True)
+        # save imaeges to a disk
+        for i, img in enumerate(images):
+            img.save(f"output{i}.png", "PNG")
+        
         return images
 
 
