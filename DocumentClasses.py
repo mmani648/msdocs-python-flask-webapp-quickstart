@@ -358,3 +358,9 @@ class Cheque(BaseModel):
     memo: Optional[str] = Field(None, description="A memo or note field on the cheque, where the issuer can write additional details")
 
    
+
+class photo(BaseModel):
+    """ Response for photograph validation. """
+    status: bool = Field(..., description="Indicates if the photograph is accepted (True) or rejected (False).")
+    reasons: List[str] = Field(..., description="List of reasons why the photograph was accepted or rejected.")
+
