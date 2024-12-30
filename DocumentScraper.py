@@ -37,8 +37,8 @@ def pdf_to_images(binary_data):
         # save imaeges to a disk
         try: os.remove(temp_file_name)
         except: pass
-        for i, img in enumerate(images):
-            img.save(f"output{i}.png", "PNG")
+        # for i, img in enumerate(images):
+        #     img.save(f"output{i}.png", "PNG")
         
         return images
 
