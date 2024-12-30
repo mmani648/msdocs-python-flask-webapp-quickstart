@@ -53,7 +53,7 @@ def pdf_to_img(binary_data):
 def test():
     return "All Systems are up and running"
 
-@app.route('/pdftoimg', methods=['GET'])
+@app.route('/pdftoimg', methods=['GET','POST'])
 def PdftoImg():
     try:
         headers = request.headers
