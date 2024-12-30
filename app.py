@@ -5,7 +5,7 @@ import json
 # Import document processing functions
 import traceback
 from DocumentScraper import DocumentParser
-from DocumentClasses import Passport, Labor_Card, Residence_Visa, Emirates_ID, Home_Country_ID, Labor_Contract_Information,TouristVisa,Invoice,PurchaseOrder ,CompanyLicense,CompanyVATCertificate
+from DocumentClasses import Passport, Labor_Card, Residence_Visa, Emirates_ID, Home_Country_ID, Labor_Contract_Information,TouristVisa,Invoice,PurchaseOrder ,CompanyLicense,CompanyVATCertificate,Cheque
 from pdf2image import convert_from_path
 import tempfile
 from DocumentScraper import encode_image_to_base64
@@ -27,6 +27,7 @@ document_handlers = {
     'purchase_order':PurchaseOrder,
     'company_license':CompanyLicense,
     'company_vat_cert':CompanyVATCertificate,
+    'cheque':Cheque
 }
 
 

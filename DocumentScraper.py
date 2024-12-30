@@ -2,7 +2,9 @@ import os
 import tempfile
 
 
-os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY')
+os.environ['OPENAI_API_KEY'] =os.environ.get('OPENAI_API_KEY')
+
+
 
 from PIL import Image
 from io import BytesIO

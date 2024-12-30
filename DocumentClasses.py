@@ -337,3 +337,24 @@ class CompanyVATCertificate(BaseModel):
     # trade_licenses_details: List[dict] = Field(None, description="List of trade license details, including sole establishments and branches")
     document_validity: str = Field(None, description="is the uploaded Document is valid mention reason if not valid")
     document_validity_check: bool = Field(None, description="is the uploaded Document is valid or  invalid")    
+
+
+
+from pydantic import BaseModel, Field
+from typing import Optional
+from decimal import Decimal
+from datetime import date
+
+class Cheque(BaseModel):
+    cheque_number: str = Field(..., description="Unique identifier for the cheque, typically printed in the top right corner")
+    account_number: str = Field(..., description="The account number linked to the cheque, usually printed at the bottom")
+    routing_number: str = Field(..., description="The routing number that identifies the bank branch, printed at the bottom")
+    payee_name: str = Field(..., description="The person or entity to whom the cheque is payable, written on the 'Pay to the order of' line")
+    amount: Decimal = Field(..., description="The amount of money in numerical form, written in figures (e.g., 100.00)")
+    amount_in_words: str = Field(..., description="The amount of money written out in words (e.g., 'One Hundred Dollars and Zero Cents')")
+    date: str = Field(..., description="The date the cheque was issued, typically located near the top right corner")
+    bank_name: str = Field(..., description="The name of the bank that issued the cheque, often found at the top left or bottom")
+    signature: Optional[str] = Field(None, description="The signature of the issuer of the cheque, usually at the bottom right")
+    memo: Optional[str] = Field(None, description="A memo or note field on the cheque, where the issuer can write additional details")
+
+   
