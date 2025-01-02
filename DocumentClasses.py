@@ -21,6 +21,9 @@ class Passport(BaseModel):
     file_number: str = Field(None, description="File number")
     document_validity: str = Field(None, description="is the uploaded Document is valid mention reason if not valid")
     document_validity_check: bool = Field(None, description="is the uploaded Document is valid or  invalid")
+    father_name: str = Field(None, description="Father's name of the person")
+    mother_name: str = Field(None, description="Mother's name of the person")
+
 
 class Labor_Card(BaseModel):
     """
